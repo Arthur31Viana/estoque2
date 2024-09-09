@@ -43,7 +43,7 @@
                         {% endif %}
                     {% if user.is_superuser %}
                         <button class="edit" title="Editar">
-                            <a href="">
+                            <a href="{% url 'estoque:estoque_saida_update' object.pk %}">
                                 <i class='bx bxs-edit'></i>
                                 Editar
                             </a>

@@ -1,12 +1,11 @@
 from datetime import datetime
 from django.contrib import messages
 from io import BytesIO
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, resolve_url, get_object_or_404
+from django.shortcuts import render, resolve_url, get_object_or_404, redirect
 from django.template.loader import get_template
 from django.urls import reverse_lazy, reverse
 from django.views.generic import (
@@ -37,8 +36,8 @@ class EstoqueEntradaList(ListView):
         if search:
             qs = qs.filter(
                 Q(funcionario__first_name__icontains=search)
-                |Q(nf__icontains=search)
-                |Q(created__icontains=search)
+                | Q(nf__icontains=search)
+                | Q(created__icontains=search)
             )
         return qs
 
@@ -163,9 +162,9 @@ class EstoqueSaidaList(ListView):
         if search:
             qs = qs.filter(
                 Q(funcionario__first_name__icontains=search)
-                |Q(funcionario__last_name__icontains=search)
-                |Q(requisicao__icontains=search)
-                |Q(created__icontains=search)
+                | Q(funcionario__last_name__icontains=search)
+                | Q(requisicao__icontains=search)
+                | Q(created__icontains=search)
             )
         return qs
 
@@ -184,6 +183,25 @@ def estoque_saida_add(request):
     context = estoque_add(request, form_inline, template_name, movimento, url)
     if context.get('pk'):
         return HttpResponseRedirect(resolve_url(url, context.get('pk')))
+    return render(request, template_name, context)
+
+
+def estoque_saida_update(request, pk):
+    template_name = 'estoque_saida_update_form.html'
+    # movimento = 's'
+    # url = 'estoque:estoque_detail'
+
+    obj = get_object_or_404(Estoque, pk=pk)
+
+    form = EstoqueFormAdmin(request.POST or None, instance=obj)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('estoque:estoque_detail', pk=obj.pk)
+
+    # context = estoque_add(request, template_name, movimento, url)
+    context = {'object': obj, 'form': form}
     return render(request, template_name, context)
 
 

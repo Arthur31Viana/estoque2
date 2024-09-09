@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if object.movimento == 'e' %}
+SCM - Detalhe da Entrada {{ object }}
+{% else %}
+SCM - Detalhe da Saída {{ object }}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="detail container">
+  <div class="table">
+    <div class="table_header">
+      <p>Informações Completas</p>
+      <div>
+        {% if object.movimento == 'e' %}
+        <button
+          class="back"
+          title="Voltar"
+        >
+          <a href="{% url 'estoque:estoque_entrada_list' %}">
+            <i class='bx bx-arrow-back'></i>
+            Voltar
+          </a>
+        </button>
+        <button
+          class="generate"
+          title="Gerar PDF"
+        >
+          <a
+            href="{% url 'estoque:entrada_pdf' object.pk %}"
+            target="_blank"
+          >
+            <i class='bx bxs-file-pdf'></i>
+            Gerar Requisição
+          </a>
+        </button>
+        {% else %}
+        <button
+          class="back"
+          title="Voltar"
+        >
+          <a href="{% url 'estoque:estoque_saida_list' %}">
+            <i class='bx bx-arrow-back'></i>
+            Voltar
+          </a>
+        </button>
+        <button
+          class="generate"
+          title="Gerar Requisição"
+        >
+          <a
+            href="{% url 'estoque:requisicao_pdf' object.pk %}"
+            target="_blank"
+          >
+            <i class='bx bxs-file-pdf'></i>
+            Gerar Requisição
+          </a>
+        </button>
+        {% endif %}
+        {% if user.is_superuser %}
+
+        {% endif %}
+      </div>
+    </div>
+    <div class="table_section">
+      <form
+        action="."
+        method="POST"
+      >
+        {% csrf_token %}
+
+        <button
+          type="submit"
+          class="edit"
+          title="Salvar"
+        >
+          <i class='bx bxs-edit'></i>
+          Salvar
+        </button>
+        <table>
+          <tbody>
+            {% if object.movimento == 'e' %}
+            <tr>
+              <th>Item:</th>
+              <td>{{ object }}</td>
+            </tr>
+            <tr>
+              <th>Nota Fiscal:</th>
+              <td>{{ object.nf_formated }}</td>
+            </tr>
+            <tr>
+              <th>Fornecedor:</th>
+              <td>{{ object.fornecedor }}</td>
+            </tr>
+            <tr>
+              <th>Criada em:</th>
+              <td>{{ object.data }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <th>Nº Requisição:</th>
+              <td>
+                {{ form.requisicao }}
+              </td>
+            </tr>
+            <tr>
+              <th>Instituição:</th>
+              <td>
+                {{ form.instituicao }}
+              </td>
+            </tr>
+            <tr>
+              <th>Modalidade:</th>
+              <td>{{ form.modalidade }}</td>
+            </tr>
+            <tr>
+              <th>Criada em:</th>
+              <td>{{ object.data }}</td>
+            </tr>
+            <tr>
+              <th>Semana:</th>
+              <td>{{ object.semana }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+              <th>Funcionário:</th>
+              <td>{{ object.funcionario.first_name }} {{ object.funcionario.last_name }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      <table>
+        <thead>
+          {% if object.movimento == 'e' %}
+          <th>#</th>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Preço Unitário</th>
+          <th>Preço Total</th>
+          <th>Saldo em Estoque</th>
+          {% else %}
+          <th>#</th>
+          <th>Produto</th>
+          <th>Quantidade Requerida</th>
+          <th>Quantidade</th>
+          <th>Saldo em Estoque</th>
+          {% endif %}
+        </thead>
+        <tbody>
+          {% for obj in object.estoques.all %}
+          <tr>
+            {% if object.movimento == 'e' %}
+            <td>{{ obj.pk }}</td>
+            <td>{{ obj }}</td>
+            {% if 'cx' in obj.estoques.un_medida %}
+            <td>{{ obj.quantidade|floatformat:0 }}</td>
+            {% else %}
+            <td>{{ obj.quantidade }}</td>
+            {% endif %}
+            {% if obj.preco == None %}
+            <td>---</td>
+            {% else %}
+            <td>{{ obj.preco }}</td>
+            {% endif %}
+            {% if obj.total == None %}
+            <td>---</td>
+            {% else %}
+            <td>{{ obj.total }}</td>
+            {% endif %}
+            <td>{{ obj.saldo }}</td>
+            {% else %}
+            <td>{{ obj.pk }}</td>
+            <td>{{ obj }}</td>
+            <td>{{ obj.quantidade_req }}</td>
+            {% if 'cx' in obj.estoques.un_medida %}
+            <td>{{ obj.quantidade|floatformat:0 }}</td>
+            {% else %}
+            <td>{{ obj.quantidade }}</td>
+            {% endif %}
+            <td>{{ obj.saldo }}</td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

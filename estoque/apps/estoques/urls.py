@@ -13,6 +13,7 @@ entrada_patterns = [
 saida_patterns = [
     path('', login_required(v.EstoqueSaidaList.as_view()), name='estoque_saida_list'),
     path('nova-saida/', v.estoque_saida_add, name='estoque_saida_add'),
+    path('update/<int:pk>/', v.estoque_saida_update, name='estoque_saida_update'),
     path('requisicao/<int:pk>/', v.ViewPDFRequisicao, name='requisicao_pdf'),
 ]
 
