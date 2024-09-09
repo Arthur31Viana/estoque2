@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    SCM - Produtos
+{% endblock %}
+
+{% block content %}
+<div class="table">
+    <div class="table_header">
+        <p>Lista de Produtos</p>
+        <div class="table_header-right">
+            <form action="." method="GET">
+                <input type="text" id="search" name="search" placeholder="Buscar">
+            </form>
+            <button class="add_new" title="Adicionar Produto">
+                <a href="{% url 'produto:produto_add' %}">
+                    + Novo Produto
+                </a>
+            </button>
+        </div>
+    </div>
+    {% if object_list %}
+        <div class="table_section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Categoria</th>
+                        <th>Estoque</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                {% for produto in object_list %}
+                    <tbody>
+                        <tr>
+                            <td onclick="location.href='{% url 'produto:produto_detail' produto.pk %}'">
+                                {{ produto.produto }}
+                            </td>
+                            {% if produto.categoria == None %}
+                                <td onclick="location.href='{% url 'produto:produto_detail' produto.pk %}'">
+                                    ---
+                                </td>
+                            {% else %}
+                                <td onclick="location.href='{% url 'produto:produto_detail' produto.pk %}'">
+                                    {{ produto.categoria }}
+                                </td>
+                            {% endif %}
+                            <td onclick="location.href='{% url 'produto:produto_detail' produto.pk %}'">
+                                {{ produto.estoque }} {{ produto.un_medida }}
+                            </td>
+                            <td>
+                                <button title="Gerar PDF de Produto">
+                                    <a href="{% url 'produto:produto_pdf' produto.pk %}">
+                                        <i class='bx bxs-file-pdf'></i>
+                                    </a>
+                                </button>
+                                <button title="Editar Produto">
+                                    <a href="{% url 'produto:produto_edit' produto.pk %}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                </button>
+                                <button title="Deletar Produto">
+                                    <a href="{% url 'produto:produto_delete' produto.pk %}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <div class="alert-list" role="alert">
+            <i class='bx bxs-error-alt'></i>
+            <p>Nenhum Produto Cadastrado</p>
+        </div>
+    {% endif %}
+    {% include 'includes/pagination.html' %}
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    SCM - Fornecedores
+{% endblock %}
+
+{% block content %}
+<div class="table">
+    <div class="table_header">
+        <p>Lista de Fornecedores</p>
+        <div class="table_header-right">
+            <form action="." method="GET">
+                <input type="text" id="search" name="search" placeholder="Buscar">
+            </form>
+            <button class="add_new" title="Adicionar Fornecedor">
+                <a href="{% url 'fornecedor:fornecedor_add' %}">
+                    + Novo Fornecedor
+                </a>
+            </button>
+        </div>
+    </div>
+    {% if object_list %}
+        <div class="table_section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Razão Social</th>
+                        <th>CNPJ</th>
+                        <th>Telefone</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                {% for fornecedor in object_list %}
+                    <tbody>
+                        <tr>
+                            <td onclick="location.href='{% url 'fornecedor:fornecedor_detail' fornecedor.pk %}'">{{ fornecedor.Razao_Social }}</td>
+                            <td onclick="location.href='{% url 'fornecedor:fornecedor_detail' fornecedor.pk %}'">{{ fornecedor.cnpj }}</td>
+                            <td onclick="location.href='{% url 'fornecedor:fornecedor_detail' fornecedor.pk %}'">{{ fornecedor.telefone }}</td>
+                            <td>
+                                <button title="Gerar PDF de Fornecedor">
+                                    <a href="{% url 'fornecedor:fornecedor_pdf' fornecedor.pk %}">
+                                        <i class='bx bxs-file-pdf'></i>
+                                    </a>
+                                </button>
+                                <button title="Editar Fornecedor">
+                                    <a href="{% url 'fornecedor:fornecedor_edit' fornecedor.pk %}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                </button>
+                                <button title="Deletar Fornecedor">
+                                    <a href="{% url 'fornecedor:fornecedor_delete' fornecedor.pk %}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <div class="alert-list" role="alert">
+            <i class='bx bxs-error-alt'></i>
+            <p>Nenhum Fornecedor Cadastrado</p>
+        </div>
+    {% endif %}
+    {% include 'includes/pagination.html' %}
+</div>
+{% endblock %}

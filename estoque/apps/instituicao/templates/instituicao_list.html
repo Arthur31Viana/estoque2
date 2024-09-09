@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    SCM - Instituições
+{% endblock %}
+
+{% block content %}
+<div class="table">
+    <div class="table_header">
+        <p>Lista de Instituições</p>
+        <div class="table_header-right">
+            <form action="." method="GET">
+                <input type="text" id="search" name="search" placeholder="Buscar">
+            </form>
+            <button class="add_new" title="Adicionar Instituição">
+                <a href="{% url 'instituicao:instituicao_add' %}">
+                    + Nova Instituição
+                </a>
+            </button>
+        </div>
+    </div>
+    {% if object_list %}
+        <div class="table_section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Instituição</th>
+                        <th>Denominação</th>
+                        <th>Inep</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                {% for instituicao in object_list %}
+                    <tbody>
+                        <tr>
+                            <td onclick="location.href='{% url 'instituicao:instituicao_detail' instituicao.pk %}'">
+                                {{ instituicao.instituicao }}
+                            </td>
+                            {% if instituicao.denominacao == None %}
+                                <td onclick="location.href='{% url 'instituicao:instituicao_detail' instituicao.pk %}'">
+                                    ---
+                                </td>
+                            {% else %}
+                                <td onclick="location.href='{% url 'instituicao:instituicao_detail' instituicao.pk %}'">
+                                    {{ instituicao.denominacao }}
+                                </td>
+                            {% endif %}
+                            <td onclick="location.href='{% url 'instituicao:instituicao_detail' instituicao.pk %}'">
+                                {{ instituicao.inep }}
+                            </td>
+                            <td>
+                                <button title="Gerar PDF de Instituição">
+                                    <a href="{% url 'instituicao:instituicao_pdf' instituicao.pk %}">
+                                        <i class='bx bxs-file-pdf'></i>
+                                    </a>
+                                </button>
+                                <button title="Editar Instituição">
+                                    <a href="{% url 'instituicao:instituicao_edit' instituicao.pk %}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                </button>
+                                <button title="Deletar Instituição">
+                                    <a href="{% url 'instituicao:instituicao_delete' instituicao.pk %}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <div class="alert-list" role="alert">
+            <i class='bx bxs-error-alt'></i>
+            <p>Nenhuma Instituição Cadastrada</p>
+        </div>
+    {% endif %}
+    {% include 'includes/pagination.html' %}
+</div>
+{% endblock %}

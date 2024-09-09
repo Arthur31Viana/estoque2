@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    SCM - Nova Saída
+{% endblock %}
+
+{% block content %}
+<div class="form">
+    <div class="text">Nova Saída</div>
+    <form action="." method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="input-data">
+                {{ form.requisicao|attr:'required:true' }}
+                {% for error in field.errors %}
+                    <span class="text-muted">{{ error }}</span>
+                {% endfor %}
+                <div class="underline"></div>
+                <label>Nº Requisição</label>
+            </div>
+            <div class="choice-data">
+                {{ form.instituicao }}
+                <div class="underline"></div>
+                <label>Instituição</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="input-data">
+                {{ form.modalidade|attr:'required:true' }}
+                <div class="underline"></div>
+                <label>Modalidade</label>
+            </div>
+            <div class="input-data">
+                {{ form.data|attr:'required:true' }}
+                <div class="underline"></div>
+                <label>Data</label>
+            </div>
+            <div class="input-data">
+                {{ form.semana|attr:'required:true' }}
+                <div class="underline"></div>
+                <label>Semana</label>
+            </div>
+            {{ formset.management_form }}
+        </div>
+        <div id="estoque">
+            {% for item_estoque_form in formset %}
+                <div class="inlineform" id="item-{{ forloop.counter0 }}">
+                    <div class="form-row">
+                        <div class="choice-data">
+                            {{ item_estoque_form.produto }}
+                            <div class="underline"></div>
+                            <label>{{ item_estoque_form.produto.label }}</label>
+                        </div>
+                        <div class="input-data">
+                            {{ item_estoque_form.quantidade_req }}
+                            <div class="underline"></div>
+                            <label>{{ item_estoque_form.quantidade_req.label }}</label>
+                        </div>
+                        <div class="input-data">
+                            {{ item_estoque_form.quantidade }}
+                            <div class="underline"></div>
+                            <label>{{ item_estoque_form.quantidade.label }}</label>
+                        </div>
+                        <div class="input-data">
+                            {{ item_estoque_form.saldo }}
+                            <div class="underline"></div>
+                            <label for="id_estoque-{{ forloop.counter0 }}-saldo">{{ item_estoque_form.saldo.label }}:</label>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="add-btn">
+            <span id="add-item" class="btn btn-info">
+                <i class='bx bx-plus'></i> Adicionar Produto
+            </span>
+        </div>
+        <div class="form-row action-btn">
+            <div class="input-data">
+                <div class="inner"></div>
+                <button type="submit" class="submit-btn">
+                    <i class='bx bxs-save'></i>
+                    <span>Salvar</span>
+                </button>
+            </div>
+            <div class="input-data">
+                <div class="inner"></div>
+                <button type="button" class="cancel-btn">
+                    <a href="{% url 'estoque:estoque_saida_list' %}" type="button" title="Cancelar">
+                        <i class='bx bxs-x-circle'></i>
+                        <span>Cancelar</span>
+                    </a>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/estoque_saida.js' %}"></script>
+
+<script type="text/html" id="item-estoque">
+    <div id="item-__prefix__" class="inlineform">
+        <div class="form-row">
+            <div class="data">
+                {{ formset.empty_form }}
+            </div>
+        </div>
+    </div>
+</script>
+{% endblock %}

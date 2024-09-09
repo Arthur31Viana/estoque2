@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+    SCM - Novo Fornecedor
+{% endblock %}
+
+{% block content %}
+<div class="form">
+    <div class="text">Novo Fornecedor</div>
+    <form action="." method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="input-data">
+                {{ form.Razao_Social }}
+                {% for error in field.errors %}
+                    <span class="text-muted">{{ error }}</span>
+                {% endfor %}
+                <div class="underline"></div>
+                <label>Razão Social</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="input-data">
+                {{ form.Nome_Fantasia }}
+                <div class="underline"></div>
+                <label>Nome Fantasia</label>
+            </div>
+            <div class="input-data">
+                {{ form.cnpj }}
+                <div class="underline"></div>
+                <label>CNPJ</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="input-data">
+                {{ form.Inscricao_Municipal }}
+                <div class="underline"></div>
+                <label>Inscrição Municipal</label>
+            </div>
+            <div class="input-data">
+                {{ form.Inscricao_Estadual }}
+                <div class="underline"></div>
+                <label>Inscrição Estadual</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="input-data">
+                {{ form.UF }}
+                <div class="underline"></div>
+                <label>UF</label>
+            </div>
+            <div class="input-data">
+                {{ form.Cidade }}
+                <div class="underline"></div>
+                <label>Cidade</label>
+            </div>
+            <div class="input-data">
+                {{ form.Bairro }}
+                <div class="underline"></div>
+                <label>Bairro</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="input-data">
+                {{ form.Logradouro }}
+                <div class="underline"></div>
+                <label>Logradouro</label>
+            </div>
+            <div class="input-data">
+                {{ form.Numero }}
+                <div class="underline"></div>
+                <label>Número</label>
+            </div>
+            <div class="input-data">
+                {{ form.cep }}
+                <div class="underline"></div>
+                <label>CEP</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="input-data">
+                {{ form.telefone }}
+                <div class="underline"></div>
+                <label>Telefone</label>
+            </div>
+            <div class="input-data">
+                {{ form.email }}
+                <div class="underline"></div>
+                <label>E-mail</label>
+            </div>
+        </div>
+        <div class="form-row action-btn">
+            <div class="input-data">
+                <div class="inner"></div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-save"></i>
+                    <span>Salvar</span>
+                </button>
+            </div>
+            <div class="input-data">
+                <div class="inner"></div>
+                <button type="button" class="cancel-btn">
+                    <a href="{% url 'fornecedor:fornecedor_list' %}" type="button" title="Cancelar">
+                        <i class='bx bxs-x-circle'></i>
+                        <span>Cancelar</span>
+                    </a>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

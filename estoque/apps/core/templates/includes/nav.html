@@ -1,0 +1,88 @@
+{% load static %}
+<nav class="menu">
+    <div class="head">
+        <div class="profile">
+            <i class='bx bxs-user' title="Usuário"></i>
+            {{ user.get_full_name }}
+        </div>
+        <!--
+        <div class="logo">
+            <img src="" alt="logo">
+        </div>
+        -->
+        <button type="button" class="close-menu-btn"></button>
+    </div>
+    {% with url_name=request.resolver_match.url_name %}
+        <ul>
+            <li>
+                {% if url_name == 'index' %}
+                    <a href="{% url 'core:index' %}" class="active">Ínicio</a>
+                {% else %}
+                    <a href="{% url 'core:index' %}">Ínicio</a>
+                {% endif %}
+            </li>
+            <li class="dropdown">
+                {% if url_name == 'instituicao_list' or url_name == 'instituicao_detail' or url_name == 'instituicao_add' or url_name == 'instituicao_edit' %}
+                    <a href="" class="active">Instituições</a>
+                {% else %}
+                    <a href="">Instituições</a>
+                {% endif %}
+                <i class="fa-solid fa-chevron-down"></i>
+                <ul class="sub-menu">
+                    <li><a href="{% url 'instituicao:instituicao_list' %}"><span>Instituições</span></a></li>
+                    <li><a href="{% url 'instituicao:import_xlsx' %}"><span>Importar XLSX</span></a></li>
+                    <li><a href="{% url 'instituicao:export_xlsx' %}"><span>Exportar XLSX</span></a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                {% if url_name == 'fornecedor_list' or url_name == 'fornecedor_detail' or url_name == 'fornecedor_add' or url_name == 'fornecedor_edit' %}
+                    <a href="" class="active">Fornecedores</a>
+                {% else %}
+                    <a href="">Fornecedores</a>
+                {% endif %}
+                <i class="fa-solid fa-chevron-down"></i>
+                <ul class="sub-menu">
+                    <li><a href="{% url 'fornecedor:fornecedor_list' %}"><span>Fornecedores</span></a></li>
+                    <li><a href="{% url 'fornecedor:import_xlsx' %}"><span>Importar XLSX</span></a></li>
+                    <li><a href="{% url 'fornecedor:export_xlsx' %}"><span>Exportar XLSX</span></a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                {% if url_name == 'produto_list' or url_name == 'produto_detail' or url_name == 'produto_add' or url_name == 'produto_edit' %}
+                    <a href="" class="active">Produtos</a>
+                {% else %}
+                    <a href="">Produtos</a>
+                {% endif %}
+                <i class="fa-solid fa-chevron-down"></i>
+                <ul class="sub-menu">
+                    <li><a href="{% url 'produto:produto_list' %}"><span>Produtos</span></a></li>
+                    <li><a href="{% url 'produto:import_xlsx' %}"><span>Importar XLSX</span></a></li>
+                    <li><a href="{% url 'produto:export_xlsx' %}"><span>Exportar XLSX</span></a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                {% if url_name == 'estoque_entrada_list' or url_name == 'estoque_entrada_add' or url_name == 'estoque_saida_list' or url_name == 'estoque_saida_add' or url_name == 'estoque_detail' %}
+                    <a href="" class="active">Estoque</a>
+                {% else %}
+                    <a href="">Estoque</a>
+                {% endif %}
+                <i class="fa-solid fa-chevron-down"></i>
+                <ul class="sub-menu">
+                    <li><a href="{% url 'estoque:estoque_entrada_list' %}"><span>Entrada</span></a></li>
+                    <li><a href="{% url 'estoque:estoque_saida_list' %}"><span>Saída</span></a></li>
+                    {% if user.is_superuser %}
+                        <li><a href="{% url 'estoque:import_xlsx' %}"><span>Importar XLSX</span></a></li>
+                        <li><a href="{% url 'estoque:export_xlsx' %}"><span>Exportar XLSX</span></a></li>
+                    {% endif %}
+                </ul>
+            </li>
+            <li>
+                {% if url_name == 'requisicao_list' %}
+                    <a href="{% url 'requisicao:requisicao_list' %}" class="active">Requisições</a>
+                {% else %}
+                    <a href="{% url 'requisicao:requisicao_list' %}">Requisições</a>
+                {% endif %}
+            </li>
+        </ul>
+    {% endwith %}
+</nav>

@@ -1,0 +1,21 @@
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div class="alert alert-success show">
+                <i class='bx bxs-check-circle'></i>
+                <span class="msg">{{ message }}</span>
+                <span class="close-btn">
+                    <i class='bx bx-x'></i>
+                </span>
+            </div>
+        {% elif message.tags == 'error' %}
+            <div class="alert alert-error show">
+                <i class='bx bxs-error'></i>
+                <span class="msg">{{ message }}</span>
+                <span class="close-btn">
+                    <i class='bx bx-x'></i>
+                </span>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}

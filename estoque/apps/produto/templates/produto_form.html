@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+    SCM - Novo Produto
+{% endblock %}
+
+{% block content %}
+<div class="form">
+    <div class="text">Novo Produto</div>
+    <form action="." method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="input-data">
+                {{ form.produto }}
+                {% for error in field.errors %}
+                    <span class="text-muted">{{ error }}</span>
+                {% endfor %}
+                <div class="underline"></div>
+                <label>Produto</label>
+            </div>
+            <div class="choice-data">
+                {{ form.categoria }}
+                <div class="underline"></div>
+                <label>Categoria</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="input-data">
+                {{ form.estoque }}
+                <div class="underline"></div>
+                <label>Estoque</label>
+            </div>
+            <div class="choice-data">
+                {{ form.un_medida }}
+                <div class="underline"></div>
+                <label>Uni. de Medida</label>
+            </div>
+        </div>
+        <div class="form-row action-btn">
+            <div class="input-data">
+                <div class="inner"></div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-save"></i>
+                    <span>Salvar</span>
+                </button>
+            </div>
+            <div class="input-data">
+                <div class="inner"></div>
+                <button type="button" class="cancel-btn">
+                    <a href="{% url 'produto:produto_list' %}" type="button" title="Cancelar">
+                        <i class='bx bxs-x-circle'></i>
+                        <span>Cancelar</span>
+                    </a>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% if page_obj.has_previous or page_obj.has_next %}
+    <!-- pagination.html -->
+    <div class="pagination">
+        <!-- Página anterior -->
+        {% if page_obj.has_previous %}
+            <div>
+                <a href="?page={{ page_obj.previous_page_number }}&search={{ request.GET.search }}">
+                    <span>
+                        <i class='bx bx-chevron-left'></i>
+                    </span>
+                </a>
+            </div>
+            <div>
+                <a class="page-link" href="?page=1&search={{ request.GET.search }}">1</a>
+            </div>
+            <div class="dots">
+                <span>...</span>
+            </div>
+        {% endif %}
+
+        <!-- Páginas do meio -->
+        <div class="active">
+            <span>{{ page_obj.number }}</span>
+        </div>
+
+        <!-- Próxima página -->
+        {% if page_obj.has_next %}
+            <div class="dots">
+                <span>...</span>
+            </div>
+            <div class="page-item">
+                <a href="?page={{ page_obj.paginator.num_pages }}&search={{ request.GET.search }}">
+                    <span>
+                        {{ page_obj.paginator.num_pages }}
+                    </span>
+                </a>
+            </div>
+            <div>
+                <a href="?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}">
+                    <span>
+                        <i class='bx bx-chevron-right'></i>
+                    </span>
+                </a>
+            </div>
+        {% endif %}
+        <!-- Fim da paginação -->
+    </div>
+{% endif %}

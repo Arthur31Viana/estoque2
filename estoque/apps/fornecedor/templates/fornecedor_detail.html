@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    SCM - Detalhe do Fornecedor {{ object.Razao_Social }}
+{% endblock %}
+
+
+{% block content %}
+<div class="detail container">
+    <div class="table">
+        <div class="table_header">
+            <p>Informações Completas</p>
+            <div>
+                <button class="back" title="Voltar">
+                    <a href="{% url 'fornecedor:fornecedor_list' %}">
+                        <i class='bx bx-arrow-back'></i>
+                        Voltar
+                    </a>
+                </button>
+                <button class="generate" title="Gerar PDF">
+                    <a href="{% url 'fornecedor:fornecedor_pdf' object.pk %}">
+                        <i class='bx bxs-file-pdf'></i>
+                        Gerar PDF
+                    </a>
+                </button>
+                <button class="edit" title="Editar Fornecedor">
+                    <a href="{% url 'fornecedor:fornecedor_edit' object.pk %}">
+                        <i class='bx bxs-edit'></i>
+                        Editar
+                    </a>
+                </button>
+                <button class="delete" title="Deletar Fornecedor">
+                    <a href="{% url 'fornecedor:fornecedor_delete' object.pk %}">
+                        <i class='bx bxs-trash-alt'></i>
+                        Excluir
+                    </a>
+                </button>
+            </div>
+        </div>
+        <div class="table_section">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Razão Social:</th>
+                        <td>{{ object.Razao_Social }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nome Fantasia:</th>
+                        <td>{{ object.Nome_Fantasia }}</td>
+                    </tr>
+                    <tr>
+                        <th>CNPJ:</th>
+                        <td>{{ object.cnpj }}</td>
+                    </tr>
+                    <tr>
+                        <th>Inscrição Municipal:</th>
+                        <td>{{ object.Inscricao_Municipal }}</td>
+                    </tr>
+                    <tr>
+                        <th>Inscrição Estadual:</th>
+                        <td>{{ object.Inscricao_Estadual }}</td>
+                    </tr>
+                    <tr>
+                        <th>UF:</th>
+                        <td>{{ object.UF }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cidade:</th>
+                        <td>{{ object.Cidade }}</td>
+                    </tr>
+                    <tr>
+                        <th>Bairro:</th>
+                        <td>{{ object.Bairro }}</td>
+                    </tr>
+                    <tr>
+                        <th>Logradouro:</th>
+                        <td>{{ object.Logradouro }}</td>
+                    </tr>
+                    <tr>
+                        <th>Número:</th>
+                        <td>{{ object.Numero }}</td>
+                    </tr>
+                    <tr>
+                        <th>CEP:</th>
+                        <td>{{ object.cep }}</td>
+                    </tr>
+                    <tr>
+                        <th>Telefone:</th>
+                        <td>{{ object.telefone }}</td>
+                    </tr>
+                    <tr>
+                        <th>E-mail:</th>
+                        <td>{{ object.email }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

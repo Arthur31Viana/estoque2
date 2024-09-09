@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if object.movimento == 'e' %}
+        SCM - Deletar Entrada {{ object }}
+    {% else %}
+        SCM - Deletar Saída {{ object }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="form">
+    {% if object.movimento == 'e' %}
+        <div class="text">Deletar Entrada</div>
+    {% else %}
+        <div class="text">Deletar Saída</div>
+    {% endif %}
+    <form action="." method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="input-data">
+                {% if object.movimento == 'e' %}
+                    <p>Tem certeza que deseja deletar a Entrada "<strong>{{ object }}</strong>"?</p>
+                {% else %}
+                    <p>Tem certeza que deseja deletar a Saída "<strong>{{ object }}</strong>"?</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-row action-btn">
+            <div class="input-data">
+                <div class="inner"></div>
+                <button type="submit" class="submit-btn" title="Sim">
+                    <i class="fas fa-save"></i>
+                    <span>Sim</span>
+                </button>
+            </div>
+            <div class="input-data">
+                <div class="inner"></div>
+                <button type="button" class="cancel-btn" title="Cancelar">
+                    {% if object.movimento == 'e' %}
+                        <a href="{% url 'estoque:estoque_entrada_list' %}" type="button" title="Cancelar">
+                            <i class='bx bxs-x-circle'></i>
+                            <span>Cancelar</span>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'estoque:estoque_saida_list' %}" type="button" title="Cancelar">
+                            <i class='bx bxs-x-circle'></i>
+                            <span>Cancelar</span>
+                        </a>
+                    {% endif %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

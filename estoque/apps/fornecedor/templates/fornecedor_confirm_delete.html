@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    SCM - Deletar Fornecedor {{ object.Razao_Social }}
+{% endblock %}
+
+{% block content %}
+<div class="form">
+    <div class="text">Deletar Fornecedor</div>
+    <form action="." method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="input-data">
+                <p>Tem certeza que deseja deletar o Fornecedor "<strong>{{ object.Razao_Social }}</strong>"?</p>
+            </div>
+        </div>
+        <div class="form-row action-btn">
+            <div class="input-data">
+                <div class="inner"></div>
+                <button type="submit" class="submit-btn" title="Sim">
+                    <i class="fas fa-save"></i>
+                    <span>Sim</span>
+                </button>
+            </div>
+            <div class="input-data">
+                <div class="inner"></div>
+                <button type="button" class="cancel-btn" title="Cancelar">
+                    <a href="{% url 'fornecedor:fornecedor_list' %}" type="button" title="Cancelar">
+                        <i class='bx bxs-x-circle'></i>
+                        <span>Cancelar</span>
+                    </a>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

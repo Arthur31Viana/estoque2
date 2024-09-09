@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    SCM - {{ titulo }} de Produto
+{% endblock %}
+
+{% block content %}
+<div class="table">
+    <div class="table_header">
+        <p>Lista de {{ titulo }}</p>
+        <div class="table_header-right">
+            <form action="." method="GET">
+                <input type="text" id="search" name="search" placeholder="Buscar">
+            </form>
+            <button class="add_new" title="Adicionar {{ titulo }}">
+                <a href="{% url url_add %}">
+                    + Nova {{ titulo }}
+                </a>
+            </button>
+        </div>
+    </div>
+    {% if object_list %}
+        <div class="table_section">
+            <table>
+                {% with url_name=request.resolver_match.url_name %}
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                                {% if url_name == 'estoque_entrada_list' %}
+                                    <th>Item</th>
+                                    <th>Nota Fiscal</th>
+                                {% else %}
+                                    <th>Nº Requisição</th>
+                                {% endif %}
+                            <th>Data</th>
+                            <th>Funcionário</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                {% endwith %}
+                {% for object in object_list %}
+                    <tbody>
+                        <tr>
+                            <td onclick="location.href='{% url 'estoque:estoque_detail' object.pk %}'">{{ object.id }}</td>
+                            {% if object.movimento == 'e' %}
+                                <td onclick="location.href='{% url 'estoque:estoque_detail' object.pk %}'">{{ object }}</td>
+                                <td onclick="location.href='{% url 'estoque:estoque_detail' object.pk %}'">{{ object.nf_formated }}</td>
+                            {% else %}
+                                <td onclick="location.href='{% url 'estoque:estoque_detail' object.pk %}'">{{ object.requisicao }}</td>
+                            {% endif %}
+                            <td onclick="location.href='{% url 'estoque:estoque_detail' object.pk %}'">{{ object.data }}</td>
+                            <td onclick="location.href='{% url 'estoque:estoque_detail' object.pk %}'">{{ object.funcionario.first_name }} {{ object.funcionario.last_name }}</td>
+                            <td>
+                                {% if object.movimento == 'e' %}
+                                    <button title="Gerar PDF de {{ titulo }}">
+                                        <a href="{% url 'estoque:entrada_pdf' object.pk %}" target="_blank">
+                                            <i class='bx bxs-file-pdf'></i>
+                                        </a>
+                                    </button>
+                                {% else %}
+                                    <button title="Gerar Requisição de {{ titulo }}">
+                                        <a href="{% url 'estoque:requisicao_pdf' object.pk %}" target="_blank">
+                                            <i class='bx bxs-file-pdf'></i>
+                                        </a>
+                                    </button>
+                                {% endif %}
+                                {% if user.is_superuser %}
+                                <button title="Editar {{ titulo }}">
+                                    <a href="">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                </button>
+                                <button title="Deletar {{ titulo }}">
+                                    <a href="{% url 'estoque:estoque_delete' object.pk %}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <div class="alert-list" role="alert">
+            <i class='bx bxs-error-alt'></i>
+            <p>Nenhuma {{ titulo }} Feita</p>
+        </div>
+    {% endif %}
+    {% include 'includes/pagination.html' %}
+</div>
+{% endblock %}
