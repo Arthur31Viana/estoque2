@@ -1,6 +1,6 @@
 import xlrd
-from s_nutricao.apps.estoque.models import Estoque
-from s_nutricao.apps.estoque.models import EstoqueItens
+from estoque.apps.estoques.models import Estoque
+from estoque.apps.estoques.models import EstoqueItens
 
 
 def import_xlsx(filename):
