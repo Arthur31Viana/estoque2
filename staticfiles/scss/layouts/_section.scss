@@ -1,0 +1,7 @@
+section {
+    margin: 85px 75px 10px;
+
+    @include tablet {
+        margin: 75px 75px 10px;
+    }
+}

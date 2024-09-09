@@ -1,0 +1,49 @@
+:root {
+    /* ===== Default Colors ===== */
+    --body-color: hsl(0,0%,75%);
+    --primary-color: hsl(209,100%,15%);
+    --secondary-color: hsl(215,46%,48%);
+    --thirt-color: hsl(201,71%,73%);
+    --four-color: hsl(73,40%,47%);
+    --five-color: hsl(210,50%,98%);
+
+    /* ===== Text Colors ===== */
+    --text-color: hsl(0,0%,100%);
+    --text-secondary-color: hsl(0,0%,0%);
+    --text-thirt-color: hsl(213,15%,58%);
+    --text-four-color: hsl(215,46%,48%);
+    --text-five-color: hsl(73,40%,47%);
+
+    /* ===== Icon Colors ===== */
+    --icon-primary-color: hsl(0,0%,100%);
+    --icon-logout-color: hsl(8,92%,55%);
+
+    /* ===== Border Colors ===== */
+    --border-primary-color: hsla(0, 0%, 100%, 0.2);
+    --border-secondary-color: hsla(0, 0%, 100%, 0.25);
+    --border-third-color: hsl(0,0%,100%);
+    --border-four-color: hsl(0,0%,87%);
+
+    /* ===== Shadow Colors ===== */
+    --shadow-primary-color: hsla(0, 0%, 0%, 0.5);
+    --shadow-secondary-color: hsla(0, 0%, 0%, 0.75);
+    --shadow-third-color: hsla(0, 0%, 0%, 0.12);
+
+    /* ===== Button Colors ===== */
+    --button-info-color: hsl(191,87%,55%);
+    --button-edit-color:  hsl(43,88%,54%);
+    --button-delet-color: hsl(0,100%,49%);
+    --button-save-color: hsl(207,98%,34%);
+    --button-yes-color: hsl(131,42%,47%);
+    --button-new-color: hsl(196,98%,41%);
+    --button-add-color: hsl(0, 0%, 87%);
+    --button-generate-color: hsl(190, 29%, 19%);
+    --button-cancel-color: hsl(208,7%,46%);
+    --button-back-color: hsl(0,0%,10%);
+
+    /* ===== Transitions ===== */
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}

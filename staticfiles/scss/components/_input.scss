@@ -1,0 +1,104 @@
+.table {
+    input {
+        padding: 10px 20px;
+        margin: 0 10px;
+        outline: none;
+        border: 1px solid #0298cf;
+        border-radius: 6px;
+        color: #0298cf;
+    }
+}
+
+.form {
+    .input-data input,
+    .data input,
+    .input-data button,
+    .choice-data select,
+    .data select {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: none;
+        font-size: 17px;
+        border-bottom: 2px solid var(--shadow-third-color);
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus ~ label,
+        &:valid ~ label {
+            transform: translateY(-20px);
+            color: #3498db;
+            font-size: 14px;
+        }
+    }
+
+    .data input,
+    .data select {
+        border-bottom: 2px solid #3498db;
+    }
+
+    .input-data label,
+    .choice-data label,
+    .data label {
+        position: absolute;
+        bottom: 10px;
+        font-size: 16px;
+        pointer-events: none;
+        transition: all 0.3s ease;
+
+        span {
+            font-weight: bold;
+        }
+    }
+
+    .input-data .lead,
+    .data .lead {
+        margin-left: 6px;
+    }
+
+    .data .lbProduto,
+    .data .lbQuantidade,
+    .data .lbQuantidadeReq,
+    .data .lbPreco {
+        position: relative;
+        font-size: 14px;
+        color: #3498db;
+    }
+
+    .input-data .underline,
+    .choice-data .underline {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+
+        &:before,
+        &:after {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: #3498db;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+    }
+
+    .input-data input:focus ~ .underline:before, .underline:after, 
+    .data input:focus ~ .underline:before, .underline:after, 
+    .input-data button:focus ~ .underline:before, .underline:after, 
+    .data button:focus ~ .underline:before, .underline:after, 
+    .choice-data select:focus ~ .underline:before, .underline:after,
+    .data select:focus ~ .underline:before, .underline:after,
+    .input-data input:valid ~ .underline:before, .underline:after, 
+    .data input:valid ~ .underline:before, .underline:after, 
+    .input-data button:valid ~ .underline:before, .underline:after, 
+    .data button:valid ~ .underline:before, .underline:after, 
+    .choice-data select:valid ~ .underline:before, .underline:after,
+    .data select:valid ~ .underline:before, .underline:after {
+        transform: scaleX(1);
+    }
+}

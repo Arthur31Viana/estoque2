@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  background-color: var(--body-color);
+  background-size: cover;
+  background-position: center;
+}
+
+.index {
+  background: var(--five-color);
+  box-shadow: 0px 0px 10px var(--shadow-primary-color);
+  padding: 30px;
+}/*# sourceMappingURL=glob.css.map */

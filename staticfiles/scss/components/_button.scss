@@ -1,0 +1,158 @@
+/* Header */
+.header-right .open-menu-btn {
+    display: none;
+}
+
+.table {
+    button {
+        outline: none;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 10px;
+
+        a {
+            text-decoration: none;
+            color: var(--icon-primary-color);
+        }
+    }
+    
+    td button:nth-child(1) {
+        background-color: var(--button-generate-color);
+    }
+    
+    td button:nth-child(2) {
+        background-color: var(--button-edit-color);
+    }
+    
+    td button:nth-child(3) {
+        background-color: var(--button-delet-color);
+    }
+    
+    .add_new {
+        padding: 10px 20px;
+        color: var(--icon-primary-color);
+        background: var(--button-new-color);
+    }
+    
+    .back {
+        padding: 10px 20px;
+        color: var(--icon-primary-color);
+        background: var(--button-back-color);
+    }
+    
+    .generate {
+        padding: 10px 20px;
+        color: var(--icon-primary-color);
+        background: var(--button-generate-color);
+    }
+    
+    .edit {
+        padding: 10px 20px;
+        color: var(--icon-primary-color);
+        background: var(--button-edit-color);
+    }
+    
+    .delete {
+        padding: 10px 20px;
+        color: var(--icon-primary-color);
+        background: var(--button-delet-color);
+    }
+}
+
+.form {
+    .add-btn {
+        display: flex;
+        margin: 32px 0;
+        width: 100% !important;
+        height: 45px !important;
+        font-size: 17px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        
+        #add-item {
+            background: var(--button-add-color);
+            width: 22%;
+            align-content: center;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+    }
+
+    .action-btn {
+        .input-data {
+            width: 25%!important;
+            height: 45px!important;
+            overflow: hidden;
+
+            @include celular {
+                width: 40%!important;
+            }
+        }
+
+        .input-data .inner {
+            position: absolute;
+            width: 300%;
+            height: 100%;
+            left: -100%;
+            transition: all 0.3s;
+        }
+
+        .input-data:hover .inner {
+            left: 0;
+        }
+
+        .input-data button,
+        .input-data a {
+            position: relative;
+            z-index: 2;
+            border: none;
+            color: var(--text-color);
+            font-size: 17px;
+            font-weight: 500;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn {
+            background: var(--button-save-color);
+        }
+    
+        .cancel-btn {
+            background: var(--button-cancel-color);
+        }
+    }
+}
+
+.alert {
+    .close-btn {
+        position: absolute;
+        right: 0px;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 20px 18px;
+        cursor: pointer;
+    }
+}
+
+.alert-success {
+    .close-btn {
+        background: hsl(154, 16%, 74%);
+
+        &:hover {
+            background: hsl(154, 30%, 74%);
+        }
+    }
+}
+
+.alert-error {
+    .close-btn {
+        background: hsl(348, 50%, 79%);
+
+        &:hover {
+            background: hsl(348, 32%, 79%);
+        }
+    }
+}

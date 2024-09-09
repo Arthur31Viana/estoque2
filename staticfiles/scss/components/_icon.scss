@@ -1,0 +1,45 @@
+/* Header */
+.header-right {
+    .icon-btn {
+        background-color: transparent;
+        border: none;
+        color: var(--icon-primary-color);
+        font-size: 16px;
+    }
+}
+
+.alert {
+    .bxs-check-circle,
+    .bxs-error {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 30px;
+    }
+
+    .bx-x {
+        font-size: 22px;
+        line-height: 40px;
+    }
+}
+
+.alert-success {
+    .bxs-check-circle {
+        color: hsl(154, 63%, 13%);
+    }
+
+    .bx-x {
+        color: hsl(154, 63%, 13%);
+    }
+}
+
+.alert-error {
+    .bxs-error {
+        color: hsl(354, 51%, 22%);
+    }
+
+    .bx-x {
+        color: hsl(354, 51%, 22%);
+    }
+}

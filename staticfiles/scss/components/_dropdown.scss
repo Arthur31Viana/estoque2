@@ -1,0 +1,24 @@
+@import '../commons/mixins';
+
+/* Nav */
+.dropdown {
+    position: relative;
+
+    @include tablet {
+        &.active > svg {
+            transform: rotate(180deg);
+        }
+
+        &.active > .sub-menu {
+            display: block;
+        }
+    }
+}
+
+.menu > ul > .dropdown > a {
+    padding-right: 15px;
+
+    @include tablet {
+        padding-right: 34px;
+    }
+}
