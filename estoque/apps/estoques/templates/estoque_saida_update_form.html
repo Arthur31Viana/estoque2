@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 {% if object.movimento == 'e' %}
@@ -9,7 +10,10 @@ SCM - Detalhe da Saída {{ object }}
 {% endblock %}
 
 {% block content %}
-<div class="detail container">
+<div
+  class="detail container"
+  x-data="getEstoque"
+>
   <div class="table">
     <div class="table_header">
       <p>Informações Completas</p>
@@ -143,49 +147,71 @@ SCM - Detalhe da Saída {{ object }}
           {% else %}
           <th>#</th>
           <th>Produto</th>
-          <th>Quantidade Requerida</th>
           <th>Quantidade</th>
+          <th>Quantidade Requerida</th>
           <th>Saldo em Estoque</th>
           {% endif %}
         </thead>
         <tbody>
-          {% for obj in object.estoques.all %}
-          <tr>
-            {% if object.movimento == 'e' %}
-            <td>{{ obj.pk }}</td>
-            <td>{{ obj }}</td>
-            {% if 'cx' in obj.estoques.un_medida %}
-            <td>{{ obj.quantidade|floatformat:0 }}</td>
-            {% else %}
-            <td>{{ obj.quantidade }}</td>
-            {% endif %}
-            {% if obj.preco == None %}
-            <td>---</td>
-            {% else %}
-            <td>{{ obj.preco }}</td>
-            {% endif %}
-            {% if obj.total == None %}
-            <td>---</td>
-            {% else %}
-            <td>{{ obj.total }}</td>
-            {% endif %}
-            <td>{{ obj.saldo }}</td>
-            {% else %}
-            <td>{{ obj.pk }}</td>
-            <td>{{ obj }}</td>
-            <td>{{ obj.quantidade_req }}</td>
-            {% if 'cx' in obj.estoques.un_medida %}
-            <td>{{ obj.quantidade|floatformat:0 }}</td>
-            {% else %}
-            <td>{{ obj.quantidade }}</td>
-            {% endif %}
-            <td>{{ obj.saldo }}</td>
-            {% endif %}
-          </tr>
-          {% endfor %}
+          <template
+            x-for="item in items"
+            :key="item.id"
+          >
+            <tr>
+              <td></td>
+              <td>
+                <select
+                  x-model="item.produto"
+                  @change="updateItem(item)"
+                >
+                  <option value="">------</option>
+                  <template x-for="produto in produtos">
+                    <option
+                      :value="produto.id"
+                      x-text="produto.produto"
+                      :selected="item.produto == produto.id"
+                    ></option>
+                  </template>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  x-model="item.quantidade"
+                  @change="updateItem(item)"
+                >
+              </td>
+              <td>
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  x-model="item.quantidade_req"
+                  @change="updateItem(item)"
+                >
+              </td>
+              <td>
+                <span x-text="item.saldo"></span>
+              </td>
+            </tr>
+          </template>
+          <!-- quantidade_req
+          quantidade
+          preco
+          total
+          saldo -->
         </tbody>
       </table>
     </div>
   </div>
 </div>
 {% endblock %}
+
+{% block js %}
+<script
+  src="{% static 'js/estoque_saida_update.js' %}"
+  data-tokens='{ "csrf": "{{ csrf_token }}", "pk": "{{ object.pk }}" }'
+></script>
+{% endblock js %}
