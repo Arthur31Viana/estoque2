@@ -162,7 +162,7 @@ SCM - Detalhe da Saída {{ object }}
               <td>
                 <select
                   x-model="item.produto"
-                  @change="updateItem(item)"
+                  @change="getProduto(item)"
                 >
                   <option value="">------</option>
                   <template x-for="produto in produtos">
