@@ -124,10 +124,10 @@ class EstoqueItens(models.Model):
         verbose_name = 'Estoque Itens'
         ordering = ('pk',)
 
+    def __str__(self):
+        return f'{self.pk} - {self.produto}'
+
     def save(self, *args, **kwargs):
         if self.estoque.movimento == 'e':
             self.total = self.quantidade * self.preco
         super(EstoqueItens, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return '{}'.format(self.produto)

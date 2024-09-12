@@ -1,15 +1,16 @@
 from ninja import ModelSchema
 
 from .models import EstoqueItens
+from estoque.apps.produto.schemas import ProdutoSchema
 
 
 class EstoqueItemSchema(ModelSchema):
+    produto: ProdutoSchema
 
     class Meta:
         model = EstoqueItens
         fields = (
             'id',
-            'produto',
             'quantidade_req',
             'quantidade',
             'saldo',
