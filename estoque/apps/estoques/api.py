@@ -1,3 +1,4 @@
+from ninja.errors import HttpError
 from django.shortcuts import get_object_or_404
 
 from ninja import Router
@@ -22,6 +23,8 @@ def estoque_saida_itens_update(request, pk: int, payload: EstoqueItemUpdateSchem
     data = payload.dict()
 
     for attr, value in data.items():
+        if attr == 'saldo' and value < 0:
+            raise HttpError(503, 'Saldo negativo.')
         setattr(instance, attr, value)
 
     instance.save()
