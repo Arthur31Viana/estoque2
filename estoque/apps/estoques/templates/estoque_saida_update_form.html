@@ -45,7 +45,7 @@
         </div>
         <div id="estoque">
             <template
-                    x-for="item in items"
+                    x-for="(item, index) in items"
                     :key="item.id"
                     class="inlineform"
             >
@@ -61,11 +61,14 @@
                                 <option
                                 :value="produto.id"
                                 x-text="produto.produto"
-                                :selected="item.produto == produto.id"
+                                :selected="item.produto.id == produto.id"
                                 ></option>
                             </template>
                         </select>
                         <div class="underline"></div>
+                    </div>
+                    <div>
+                        <span x-text="item.produto.estoque"></span>
                     </div>
                     <div class="input-data">
                         <input
@@ -91,20 +94,16 @@
                         <div class="underline"></div>
                         <label>Quantidade</label>
                     </div>
+                    <div>
+                    </div>
                     <div class="input-data">
-                        <input
-                                type="hidden"
-                                min="0"
-                                step="1"
-                                x-model="item.quantidade"
-                                @change="updateItem(item)"
-                        >
                         <div class="underline"></div>
                         <label>
                             Saldo em Estoque
-                            <span x-text="item.saldo" class="lead"></span>
+                            <span class="lead" x-text="item.produto.estoque - item.quantidade"></span>
                             <input type="hidden">
                         </label>
+                        <span x-text="item.errorMessage" style="color: red"></span>
                     </div>
                 </div>
             </template>
